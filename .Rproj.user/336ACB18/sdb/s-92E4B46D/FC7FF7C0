@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\ndrawPoints <- function(n = 2) {\n  print(\"click on two known points\")\n  do.call(cbind, locator(n))\n}\nenterPoints <- function(x1, y1, x2, y2) {\n  rbind(c(x1, y1), c(x2, y2))\n}\n\naffinething <- function(x) {\n  if (!interactive()) stop(\"affinething is only for interactive use\")\n  plot(x)\n  drawPoints()\n}\n\n\ndomath <- function(pts, xy, proj = NULL) {\n  if (!is.null(proj)) pts <-  project(pts, proj)\n  scalex <- diff(pts[, 1]) / diff(rawxy[, 1])\n  scaley <- diff(pts[, 2]) / diff(rawxy[, 2])\n  offsetx <- pts[1,1] - rawxy[1,1] * scalex\n  offsety <- pts[1,2] - rawxy[1,2] * scaley\n\n  ## x0, (x0 + ncol * pixelX), y0, (y0 + nrow  * pixelY)\n\n  extent(offsetx, offsetx + scalex * (ncol(r) + 1), offsety, offsety + scaley * (nrow(r) + 1))\n  ## override raw index-transform applied to input image\n}\nassignproj <- function(x, proj = \"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0\") {\n  projection(x) <- proj\n  x\n}\n\n\nregions <- function(name) {\n  switch(name,\n         #rawxy <- affinething(r)\n         #pts <- enterPoints(80, -60, 160, 0)\n         swellAustralia = list(proj = \"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0\",\n                               extent = extent(64.97631, 201.3147, -69.72891, 26.75375 )),\n         #rawxy <- affinething(r)\n         #pts <- enterPoints(-60, -20, 140, -40)\n         windAntarctica = list(proj = \"+proj=stere +lat_0=-90 +lat_ts=-70 +lon_0=90 +k=1 +x_0=0 +y_0=0 +a=6378273 +b=6356889.449 +units=m +no_defs\",\n                               extent = extent(-8830383,12492413,-9648532,10730455))\n  )\n\n}\n\ngdalvrt <- function(x, a_ullr = NULL, a_srs = NULL) {\n  inputname <- filename(x)\n  outputname <- sprintf(\"%svrt\", substr(inputname, 1L, nchar(inputname)-3))\n  cal <- sprintf(\"gdal_translate %s %s -of VRT\", inputname, outputname)\n  if (!is.null(a_ullr)) cal <- paste(cal, sprintf(\"-a_ullr %f %f %f %f\", a_ullr[1], a_ullr[2], a_ullr[3], a_ullr[4]))\n  if (!is.null(a_srs)) cal <- paste(cal, sprintf(\"-a_srs %s\", a_srs))\n  system(cal)\n\n}\n\n",
+    "created" : 1450668572334.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "635722817",
+    "id" : "FC7FF7C0",
+    "lastKnownWriteTime" : 1450668692,
+    "last_content_update" : 1450668692818,
+    "path" : "~/Documents/000mdsumner/GIT/bomage/R/affinething.R",
+    "project_path" : "R/affinething.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
