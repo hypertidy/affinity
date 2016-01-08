@@ -1,9 +1,10 @@
-Package: bomage
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
-LazyData: TRUE
+Package: affinething
+Title: Simple Georeferencing
+Version: 0.0.0.9000
+Authors@R: person("Michael D.", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"))
+Description: Auxiliary georeferencing.
+Depends:
+    R (>= 3.2.3)
+License: GPL-3
+LazyData: true
+RoxygenNote: 5.0.1

@@ -1,7 +1,7 @@
 ---
-title: "bomage"
+title: "Simple georerenceing"
 author: "Michael Sumner"
-date: "December 21, 2015"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
