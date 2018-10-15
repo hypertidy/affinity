@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Get images from the BOM
+## Old rough example
 
 ```R
 r <- raster("dev/www.bom.gov.au/charts_data/IDY20001/current/windarrow/10m/2015-12-21/IDY20001.windarrow-10m.066.png")

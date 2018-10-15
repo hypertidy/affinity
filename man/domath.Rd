@@ -7,8 +7,21 @@
 domath(pts, xy, r = NULL, proj = NULL)
 }
 \arguments{
-\item{proj}{}
+\item{pts}{known points of 'xy'}
+
+\item{xy}{'xy' obtain from `affinething`}
+
+\item{r}{raster in use}
+
+\item{proj}{optional projection, if the pts are longlat and the raster is not}
+}
+\value{
+raster extent
 }
 \description{
-domath
+Convert known geographic points with raw graphic control points and a reference raster
+to an extent for the raster in geography.
+}
+\seealso{
+affinething
 }
