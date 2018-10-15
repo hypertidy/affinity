@@ -6,6 +6,13 @@
 The goal of affinething is to provide simple control point
 georeferencing for un-mapped rasters.
 
+The main functions are `affinething()` to collect drawn points
+interactively from an un-mapped raster image and `domath()` to calculate
+the extent of the raster in geographic terms and `assignproj()` to apply
+a map projection inline. There are some other experimental functions to
+write GDAL VRT `gdalvrt()` and to store some known cases for unmapped
+image sources.
+
 ## Installation
 
 You can install the dev version of affinething from
@@ -17,8 +24,10 @@ devtools::install_github("hypertidy/affinething")
 
 ## Example
 
-This examples takes an an un-mapped raster and georerences it by
-defining some control points.
+This examples takes an an un-mapped raster and
+[georefences](https://en.wikipedia.org/wiki/Georeferencing) it by
+defining some control points for a simple (offset and scale) [affine
+transformation](https://en.wikipedia.org/wiki/Affine_transformation).
 
 Generally, we want **diagonal points**, so I tend to think “southwest”
 and “northeast”, it doesn’t really matter where they are as long as
@@ -27,6 +36,7 @@ very recognizable so I read off some long-lat control points using
 [mapview](https://r-spatial.github.io/mapview/).
 
 ``` r
+library(affinething)
 data("montereybay", package = "rayshader")
 
 
@@ -72,7 +82,7 @@ using a graticule on a projected
 map.)
 
 ``` r
-mapped <- affinething:::assignproj(setExtent(r, affinething:::domath(rbind(sw, ne), xy, r, proj = NULL)), prj)
+mapped <- assignproj(setExtent(r, domath(rbind(sw, ne), xy, r, proj = NULL)), prj)
 
 m <- rnaturalearth::ne_countries(country = "United States of America", scale = 10)
 plot(mapped, col = viridis::viridis(30))
@@ -85,25 +95,4 @@ contour(mapped, levels = -10, lty = 2, add = TRUE)
 ``` r
 
 #mv <- mapview::mapview(mapped)
-```
-
-## Old rough example
-
-``` r
-r <- raster("dev/www.bom.gov.au/charts_data/IDY20001/current/windarrow/10m/2015-12-21/IDY20001.windarrow-10m.066.png")
-a <- regions("windAntarctica")
-projection(r) <- a$proj
-extent(r) <- a$extent
-plot(r)
-library(maptools)
-data(wrld_simpl)
-library(rgdal)
-w <- spTransform(wrld_simpl, projection(r))
-plot(w, add = TRUE)
-
-
-ex <- domath(pts, rawxy)
-gdalvrt(r, a_ullr = c(xmin(ex), ymax(ex), xmax(ex), ymin(ex)),
-        a_srs = "\"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0\"")
-
 ```
