@@ -13,4 +13,3 @@ assignproj(x,
 \description{
 assignproj
 }
-

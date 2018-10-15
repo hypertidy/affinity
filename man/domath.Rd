@@ -4,15 +4,11 @@
 \alias{domath}
 \title{domath}
 \usage{
-domath(pts, xy, proj = NULL)
+domath(pts, xy, r = NULL, proj = NULL)
 }
 \arguments{
 \item{proj}{}
 }
-\value{
-
-}
 \description{
 domath
 }
-

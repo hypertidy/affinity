@@ -12,15 +12,21 @@ enterPoints <- function(x1, y1, x2, y2) {
 
 #' affinething
 #'
-#' @param x
-#'
+#' Obtain control points for the simple affine transform (offset and scale) on an ungeoreferenced image.
+#' @param x a raster
+#' @param rgb use RGB plot for a raster with 3 layers
 #' @return
 #' @export
 #'
 #' @examples
-affinething <- function(x) {
+affinething <- function(x, rgb = FALSE) {
   if (!interactive()) stop("affinething is only for interactive use")
-  plot(x)
+  if (rgb) {
+    raster::plotRGB(x)
+  } else {
+    if (nlayers(x) == 3) message("raster has 3 layers, maybe use 'rgb = TRUE'?")
+    plot(x[[1]])
+  }
   drawPoints()
 }
 
@@ -32,18 +38,19 @@ affinething <- function(x) {
 #' @param proj
 #'
 #' @return
-#'
+#' @export
 #' @examples
-domath <- function(pts, xy, proj = NULL) {
-  if (!is.null(proj)) pts <-  project(pts, proj)
-  scalex <- diff(pts[, 1]) / diff(rawxy[, 1])
-  scaley <- diff(pts[, 2]) / diff(rawxy[, 2])
-  offsetx <- pts[1,1] - rawxy[1,1] * scalex
-  offsety <- pts[1,2] - rawxy[1,2] * scaley
+domath <- function(pts, xy, r = NULL, proj = NULL) {
+  if (is.null(r)) stop("need r input, a raster")
+  if (!is.null(proj)) pts <-  rgdal::project(pts, proj)
+  scalex <- diff(pts[, 1]) / diff(xy[, 1])
+  scaley <- diff(pts[, 2]) / diff(xy[, 2])
+  offsetx <- pts[1,1] - xy[1,1] * scalex
+  offsety <- pts[1,2] - xy[1,2] * scaley
 
   ## x0, (x0 + ncol * pixelX), y0, (y0 + nrow  * pixelY)
 
-  extent(offsetx, offsetx + scalex * (ncol(r) + 1), offsety, offsety + scaley * (nrow(r) + 1))
+  raster::extent(offsetx, offsetx + scalex * (ncol(r) + 1), offsety, offsety + scaley * (nrow(r) + 1))
   ## override raw index-transform applied to input image
 }
 

@@ -4,12 +4,13 @@
 \alias{affinething}
 \title{affinething}
 \usage{
-affinething(x)
+affinething(x, rgb = FALSE)
 }
 \arguments{
-\item{x}{}
+\item{x}{a raster}
+
+\item{rgb}{use RGB plot for a raster with 3 layers}
 }
 \description{
-affinething
+Obtain control points for the simple affine transform (offset and scale) on an ungeoreferenced image.
 }
-

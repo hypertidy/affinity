@@ -12,4 +12,3 @@ gdalvrt(x, a_ullr = NULL, a_srs = NULL)
 \description{
 gdalvrt
 }
-
