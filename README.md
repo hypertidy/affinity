@@ -17,12 +17,14 @@ devtools::install_github("hypertidy/affinething")
 
 ## Example
 
-This is a basic example which shows you how to solve a the problem of an
-un-mapped raster by defining some control points.
+This examples takes an an un-mapped raster and georerences it by
+defining some control points.
 
-Generally, we want diagonal points - so “southwest” and “northeast”, it
-doesn’t really matter where they are as long as there’s some pixels
-between them in both directions.
+Generally, we want **diagonal points**, so I tend to think “southwest”
+and “northeast”, it doesn’t really matter where they are as long as
+there’s some pixels between them in both directions. Monterey Bay is
+very recognizable so I read off some long-lat control points using
+[mapview](https://r-spatial.github.io/mapview/).
 
 ``` r
 data("montereybay", package = "rayshader")
