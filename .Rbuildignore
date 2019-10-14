@@ -4,3 +4,6 @@
 ^\.Rproj\.user$
 ^examples$
 ^figures$
+^\.travis\.yml$
+^appveyor\.yml$
+^codecov\.yml$

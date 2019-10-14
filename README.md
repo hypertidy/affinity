@@ -1,25 +1,48 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# affinething
+<!-- badges: start -->
 
-The goal of affinething is to provide simple control point
-georeferencing for un-mapped rasters.
+[![Travis build
+status](https://travis-ci.org/hypertidy/affinity.svg?branch=master)](https://travis-ci.org/hypertidy/affinity)[![AppVeyor
+build
+status](https://ci.appveyor.com/api/projects/status/github/hypertidy/affinity?branch=master&svg=true)](https://ci.appveyor.com/project/hypertidy/affinity)[![Codecov
+test
+coverage](https://codecov.io/gh/hypertidy/affinity/branch/master/graph/badge.svg)](https://codecov.io/gh/hypertidy/affinity?branch=master)[![CRAN
+status](https://www.r-pkg.org/badges/version/affinity)](https://CRAN.R-project.org/package=affinity)
+<!-- badges: end -->
 
-The main functions are `affinething()` to collect drawn points
-interactively from an un-mapped raster image and `domath()` to calculate
-the extent of the raster in geographic terms and `assignproj()` to apply
-a map projection inline. There are some other experimental functions to
-write GDAL VRT `gdalvrt()` and to store some known cases for unmapped
-image sources.
+# affinity
+
+The goal of affinity is to provide the basic tools used for raster grid
+georeferencing. This includes:
+
+Very much WIP (work in progress) and things will change. Most of the
+functionality is still internal, this package was renamed in October
+2019.
+
+  - the affine transform
+  - the world file model
+  - the GDAL RasterIO window model
+  - basic tools for performing grid calculations
+  - simple control point georeferencing for un-mapped rasters.
+
+The main functions for georeferencing are `affinething()` to collect
+drawn points interactively from an un-mapped raster image and `domath()`
+to calculate the extent of the raster in geographic terms and
+`assignproj()` to apply a map projection inline. There are some other
+experimental functions to write GDAL VRT `gdalvrt()` and to store some
+known cases for unmapped image sources.
+
+The basic tools still rely on the raster package.
 
 ## Installation
 
-You can install the dev version of affinething from
-[GitHub](https://CRAN.R-project.org) with:
+You can install the dev version of affinity from
+[GitHub](https://github.com/hypertidy/affinity/) with:
 
 ``` r
-devtools::install_github("hypertidy/affinething")
+devtools::install_github("hypertidy/affinity")
 ```
 
 ## Example
@@ -36,7 +59,7 @@ very recognizable so I read off some long-lat control points using
 [mapview](https://r-spatial.github.io/mapview/).
 
 ``` r
-library(affinething)
+library(affinity)
 data("montereybay", package = "rayshader")
 
 
@@ -96,3 +119,10 @@ contour(mapped, levels = -10, lty = 2, add = TRUE)
 
 #mv <- mapview::mapview(mapped)
 ```
+
+-----
+
+Please note that the ‘affinity’ project is released with a [Contributor
+Code of
+Conduct](https://github.com/hypertidy/affinity/blob/master/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.

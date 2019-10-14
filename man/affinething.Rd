@@ -31,8 +31,8 @@ pt <- cbind(my_x, my_y)
 ex <- domath(pt, xy, r, prj)
 
 ## now we can fix up the data
-r <- setExtent(r, ex)
-projection(r) <- prj
+r <- raster::setExtent(r, ex)
+raster::projection(r) <- prj
 ## hooray!
 }
 }

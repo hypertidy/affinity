@@ -3,4 +3,3 @@
 export(affinething)
 export(assignproj)
 export(domath)
-export(gdalvrt)

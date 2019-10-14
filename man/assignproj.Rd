@@ -8,7 +8,12 @@ assignproj(x,
   proj = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0")
 }
 \arguments{
-\item{proj}{}
+\item{x}{spatial object for use with [raster::projection()]}
+
+\item{proj}{PROJ.4 string}
+}
+\value{
+a spatial object with the projection set
 }
 \description{
 assignproj
