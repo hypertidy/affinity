@@ -1,0 +1,77 @@
+---
+title: "adjacencies"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{adjacencies}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(affinity)
+```
+
+```{r adjacency}
+ (m <- matrix(1:12, 3))
+ tl(m)
+ tr(m)
+ bl(m)
+ br(m)
+ tl(br(m))
+ image0(tl(br(m)))
+ text0(tl(br(m)))
+
+n <- 8
+nbr <- 2
+line <- seq(-nbr, nbr)
+line + n
+ 
+## we have values 1:12
+## if we want the topleft neighbour in a *corner* orientation
+matrix(c(tl(m), tr(m), bl(m), br(m)), ncol = 4L)
+## see that the topleft corner of 1 (find 1 in the first column, row 4) 
+# has values 1 and 4 (there's no column to their left)
+
+## the topleft corner of 5 has values 4, 5, 7, 8 (row 10 in the print out)
+
+```
+
+This is cool because we can get the row mean for each value in the original 
+matrix and apply that to the corner. This is better than what quadmesh originally
+did to create corner values. 
+
+Now, we want queen's case neighbours. 
+
+For 5, we need 1, 4, 7, 8, 9, 6, 3, 2, and first we note that 8 4, 7 are the topleft
+corner (we don't want the value we are, 5 - yet), so that means the other values for
+this cell are the topright of 5 (8, 9, 6), the botright of 5 (6, 3, 2), and bottomleft
+of 5 (2, 4, 1). 
+
+5
+
+4, 7, 8  - row 10
+6, 8, 9  - row 11
+2, 3, 6  - row 7
+1, 2, 4  - row 6
+
+8
+
+7, 10, 11 - row 14
+9, 11, 12 - row 15
+5, 6, 9   - row 11
+4, 5, 7   - row 10
+
+
+```{r queen}
+
+
+```

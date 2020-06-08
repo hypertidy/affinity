@@ -14,4 +14,7 @@ Imports:
     raster,
     reproj
 Suggests: 
-    covr
+    covr,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
