@@ -1,17 +1,18 @@
 Package: affinity
 Title: Basic Tools for Raster Georeferencing, Grid Affine Transforms, and Raster Cell Abstractions
-Version: 0.1.0
+Version: 0.1.0.9001
 Authors@R: person("Michael D.", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"))
-Description: Tools for raster georeferencing, grid affine transforms, and raster cell abstractions.
+Description: Tools for raster georeferencing, grid affine transforms, and general raster logic.
 Depends:
     R (>= 3.2.3)
 License: GPL-3
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 URL: https://github.com/hypertidy/affinity
 BugReports: https://github.com/hypertidy/affinity/issues
 Imports: 
     raster,
-    reproj
+    reproj,
+    stats
 Suggests: 
     covr

@@ -4,8 +4,10 @@
 \alias{assignproj}
 \title{assignproj}
 \usage{
-assignproj(x,
-  proj = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0")
+assignproj(
+  x,
+  proj = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0"
+)
 }
 \arguments{
 \item{x}{spatial object for use with [raster::projection()]}

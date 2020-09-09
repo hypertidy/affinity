@@ -6,7 +6,7 @@
 \alias{affinity-package}
 \title{affinity: Basic Tools for Raster Georeferencing, Grid Affine Transforms, and Raster Cell Abstractions}
 \description{
-Tools for raster georeferencing, grid affine transforms, and raster cell abstractions.
+Tools for raster georeferencing, grid affine transforms, and general raster logic.
 }
 \seealso{
 Useful links:

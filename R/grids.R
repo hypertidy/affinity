@@ -1,10 +1,14 @@
 ## DONE vapour rasterio creator
 ## DONE vapour rasterio to sf-rasterio
-## sf-rasterio to vapour rasterio
+## DONE sf-rasterio to vapour rasterio
 ## DONE geotransform creator
 ## DONE world file creator
 ## DONE world file to geotransform
 ## DONE geotransform to world file
+## DONE (vapour) get gdal geotransform
+## DONE gen gdal geotransform
+## DONE gen extent from gt+dim
+## DONE gen gt from extent+dim
 ## raster to geotransform
 ## raster to world file
 ## raster to rasterio
@@ -14,6 +18,41 @@
 ## devices to rasterio, etc. ...
 
 
+
+## creators
+##  raster_io0
+##  geo_transform0
+##  geo_world0
+
+## converters
+##  rasterio_to_sfio
+##  sfio_to_rasterio TODO
+##  gt_dim_to_extent
+
+#' @name geo_transform0
+#' @param x geotransform parameters, as per [geo_transform0()]
+#' @param dim dimensions x,y of grid (ncol,nrow)
+#' @return 4-element extent c(xmin,xmax,ymin,ymax)
+#' @export
+#' @examples
+#' gt_dim_to_extent(geo_transform0(c(1, -1), c(0, 10)), c(5, 10))
+gt_dim_to_extent <- function(x, dim) {
+  xx <- c(x[1], x[1] + dim[1] * x[2])
+  yy <- c(x[4] + dim[2] * x[6], x[4])
+  c(xx, yy)
+}
+
+#' @name geo_transform0
+#' @param x extent parameters, c(xmin,xmax,ymin,ymax)
+#' @param dim dimensions x,y of grid (ncol,nrow)
+#' @return 6-element [geo_transform0()]
+#' @export
+#' @examples
+#' extent_dim_to_gt(c(0, 5, 0, 10), c(5, 10))
+extent_dim_to_gt <- function(x, dim) {
+  px <- c(diff(x[1:2])/dim[1L], -diff(x[3:4])/dim[2L])
+  geo_transform0(px, c(x[1L], x[4L]))
+}
 #' GDAL RasterIO parameter creator
 #'
 #' Basic function to create the window paramers as used by GDAL RasterIO.
@@ -24,13 +63,32 @@
 #' @param src_dim source dimension (XY)
 #' @param out_dim output dimension (XY, optional src_dim will be used if not set)
 #' @param resample resampling algorith for GDAL see details
-#' @noRd
+#' @return numeric vector of values specifying offset, source dimension, output dimension
+#' @name raster_io
+#' @export
 #' @examples
 #' raster_io0(c(0L, 0L), src_dim = c(24L, 10L))
 raster_io0 <- function(src_offset, src_dim, out_dim = src_dim, resample = "NearestNeighbour") {
   ## GDAL, and vapour names:
   ## 'NearestNeighbour' (default), 'Average', 'Bilinear', 'Cubic', 'CubicSpline', 'Gauss', 'Lanczos', 'Mode'
-  c(src_offset, src_dim, out_dim)
+  out <- stats::setNames(c(src_offset, src_dim, out_dim), c("offset_x", "offset_y",
+                                                     "source_nx", "source_ny",
+                                                     "out_nx", "out_ny"))
+  attr(out, "resample") <- resample
+  out
+}
+
+#' @param x a RasterIO parameter list
+#'
+#' @return a sf-RasterIO parameter list
+#' @export
+#' @name raster_io
+#' @examples
+sfio_to_rasterio <- function(x) {
+  raster_io0(unlist(x[c("nXOff", "nYOff")]),
+             unlist(x[c("nXSize", "nYSize")]),
+             unlist(x[c("nBufXSize", "nBufYSize")],
+                    resample = x[["resample"]]))
 }
 
 #' The sf/stars RasterIO list
@@ -43,21 +101,26 @@ raster_io0 <- function(src_offset, src_dim, out_dim = src_dim, resample = "Neare
 #'
 #' @param x rasterio params as from [raster_io0()]
 #' @param resample resampling algorith as per [raster_io0()]
-#' @noRd
+#' @name raster_io
+#' @export
 #' @examples
 #' rio <- raster_io0(c(0L, 0L), src_dim = c(24L, 10L))
 #' rasterio_to_sfio(rio)
-rasterio_to_sfio <- function(x, resample = "NearestNeighbour") {
+rasterio_to_sfio <- function(x) {
+  resample <- attr(x, "resample")
+  if (is.null(resample)) {
+    resample <- "NearestNeighbour"
+  }
   ## sf names:
   # "nearest_neighbour", "bilinear", "cubic", "cubic_spline", "lanczos", "average", "mode", "Gauss".
-  algo <- c(NearestNeighbour = "nearest_neighbour",
+  algo <- unname(c(NearestNeighbour = "nearest_neighbour",
             Average = "average",
             Bilinear="bilinear",
             Cubic = "cubic",
             CubicSpline = "cubic_spline",
             Gauss = "gauss",
             Lanczos = "lanczos",
-            Mode = "mode")[resample]
+            Mode = "mode")[resample])
   if (is.na(algo)) {
     warning(sprintf("resampling algorithm %s unrecognized, using 'NearestNeighbour'", algo))
     algo <- "nearest_neighbour"
@@ -68,7 +131,7 @@ rasterio_to_sfio <- function(x, resample = "NearestNeighbour") {
        nYSize = x[4L],
        nBufXSize = x[5L],
        nBufYSize = x[6L],
-       resample = resample)
+       resample = algo)
 }
 #' Geo transform parameter creator
 #'
@@ -79,7 +142,7 @@ rasterio_to_sfio <- function(x, resample = "NearestNeighbour") {
 #' @param sh affine shear (XY)
 #'
 #' @return vector of parameters xmin, xres, yskew, ymax, xskew, yres
-#' @noRd
+#' @export
 #'
 #' @examples
 #' geo_transform0(px = c(1, -1), ul = c(0, 0))
@@ -92,7 +155,7 @@ geo_transform0 <- function(px, ul, sh = c(0, 0)) {
     yres = px[[2L]])
 }
 
-#' @name geot_ransform0
+#' @name geo_transform0
 #' @param x worldfile parameters, as per [geo_world0()]
 #' @examples
 #' (wf <- geo_world0(px = c(1, -1), ul = c(0, 0)))
@@ -114,9 +177,10 @@ world_to_geotransform <- function(x) {
 #' Note that xmin/xmax are _centre_of_cell_ (of top-left cell) unlike the geotransform which is
 #' top-left _corner_of_cell_. The parameters are otherwise the same, but in a different order.
 #' @inheritParams geo_transform0
-#' @noRd
+#' @export
 #' @seealso geo_transform0
 #' @return vector of parameters xres, yskew, xskew, yres, xmin, ymax
+#' @export
 #' @examples
 #' geo_world0(px = c(1, -1), ul = c(0, 0))
 geo_world0 <- function(px, ul, sh = c(0, 0)) {
