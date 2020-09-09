@@ -11,20 +11,20 @@
 #' tl(br(m))
 #' image0(tl(br(m)))
 #' text0(tl(br(m)))
-tl <- function(x) {
+bl <- function(x) {
   ## top left
   cbind(NA_integer_, rbind(NA_integer_, x))
 }
 
-tr <-  function(x) {
+tl <-  function(x) {
   ## top right
   cbind(NA_integer_, rbind(x, NA_integer_))
 }
-bl <- function(x) {
+br <- function(x) {
   ## bottom left
   cbind(rbind(NA_integer_, x), NA_integer_)
 }
-br <- function(x) {
+tr <- function(x) {
   ## bottom right
   cbind(rbind(x, NA_integer_), NA_integer_)
 }

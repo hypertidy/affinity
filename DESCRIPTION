@@ -16,3 +16,5 @@ Imports:
     stats
 Suggests: 
     covr
+VignetteBuilder: knitr
+
