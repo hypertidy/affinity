@@ -17,7 +17,27 @@
 ## stars converters
 ## devices to rasterio, etc. ...
 
+#' @noRd
+#' @examples
+#' raster_to_gt(raster::raster(volcano))
+raster_to_gt <- function(x) {
+  #x <- raster::raster(volcano)
+  extent_dim_to_gt(c(x@extent@xmin, x@extent@xmax, x@extent@ymin, x@extent@ymax),
+                   c(x@ncols, x@nrows))
+}
 
+raster_to_world <- function(x) {
+  gt <- raster_to_gt(x)
+  geo_world0(gt[c("xres", "yres")], ul = gt[c("xmin", "ymax")])
+}
+
+raster_to_rasterio <- function(x) {
+  raster_io0(c(0, 0), c(x@ncols, x@nrows))
+}
+
+raster_to_sfio <- function(x) {
+  rasterio_to_sfio( raster_to_rasterio(x))
+}
 
 ## creators
 ##  raster_io0
