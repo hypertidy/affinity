@@ -1,6 +1,5 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- badges: start -->
 
 [![Travis build
@@ -10,6 +9,7 @@ status](https://ci.appveyor.com/api/projects/status/github/hypertidy/affinity?br
 test
 coverage](https://codecov.io/gh/hypertidy/affinity/branch/master/graph/badge.svg)](https://codecov.io/gh/hypertidy/affinity?branch=master)[![CRAN
 status](https://www.r-pkg.org/badges/version/affinity)](https://CRAN.R-project.org/package=affinity)
+[![R-CMD-check](https://github.com/hypertidy/affinity/workflows/R-CMD-check/badge.svg)](https://github.com/hypertidy/affinity/actions)
 <!-- badges: end -->
 
 # affinity
@@ -17,15 +17,15 @@ status](https://www.r-pkg.org/badges/version/affinity)](https://CRAN.R-project.o
 The goal of affinity is to provide the basic tools used for raster grid
 georeferencing. This includes:
 
-Very much WIP (work in progress) and things will change. Most of the
-functionality is still internal, this package was renamed in October
-2019.
+-   the affine transform
+-   the world file model
+-   the GDAL RasterIO window model
+-   basic tools for performing grid calculations
+-   simple control point georeferencing for un-mapped rasters.
 
-  - the affine transform
-  - the world file model
-  - the GDAL RasterIO window model
-  - basic tools for performing grid calculations
-  - simple control point georeferencing for un-mapped rasters.
+The main use at the moment is the ability to get a geotransform from an
+extent and dimension, this makes it easy to drive GDAL functions and to
+compare with the RasterIO logic in the sf package raster reader.
 
 The main functions for georeferencing are `affinething()` to collect
 drawn points interactively from an un-mapped raster image and `domath()`
@@ -87,8 +87,7 @@ order is not important but it must match.
 xy <- affinething(r > 0)
 ```
 
-In this example the points
-are
+In this example the points are
 
 ``` r
 xy <- structure(c(0.65805655219227, 0.858931100128933, 0.367586425626388, 
@@ -98,11 +97,10 @@ xy <- structure(c(0.65805655219227, 0.858931100128933, 0.367586425626388,
 
 <img src="man/figures/README-affine-thing2-1.png" width="100%" />
 
-Now we have everything we need to re-map our raster\! We don’t need to
+Now we have everything we need to re-map our raster! We don’t need to
 project our points as the known locations are in the same coordinate
 system as the source data. (In other situations we might georeference
-using a graticule on a projected
-map.)
+using a graticule on a projected map.)
 
 ``` r
 mapped <- assignproj(setExtent(r, domath(rbind(sw, ne), xy, r, proj = NULL)), prj)
@@ -116,11 +114,10 @@ contour(mapped, levels = -10, lty = 2, add = TRUE)
 <img src="man/figures/README-affine-remap-1.png" width="100%" />
 
 ``` r
-
 #mv <- mapview::mapview(mapped)
 ```
 
------
+------------------------------------------------------------------------
 
 Please note that the ‘affinity’ project is released with a [Contributor
 Code of

@@ -24,13 +24,14 @@ knitr::opts_chunk$set(
 
 The goal of affinity is to provide the basic tools used for raster grid georeferencing. This includes: 
 
-Very much WIP (work in progress) and things will change. Most of the functionality is still internal, this package was renamed in October 2019. 
-
 * the affine transform
 * the world file model
 * the GDAL RasterIO window model
 * basic tools for performing grid calculations
 * simple control point georeferencing for un-mapped rasters. 
+
+The main use at the moment is the ability to get a geotransform from an extent and dimension, this makes it easy to drive GDAL functions and to compare
+with the RasterIO logic in the sf package raster reader. 
 
 The main functions for georeferencing are `affinething()` to collect drawn points interactively from an un-mapped raster image and `domath()` to calculate the extent of the raster in geographic terms and `assignproj()` to apply a map projection inline. There are some other experimental functions to write GDAL VRT `gdalvrt()` and to store some known cases for unmapped image sources.  
 
