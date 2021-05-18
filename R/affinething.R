@@ -10,7 +10,9 @@ enterPoints <- function(x1, y1, x2, y2) {
   rbind(c(x1, y1), c(x2, y2))
 }
 
-#' affinething
+#' Use affine logic interactively georegister a raster
+#'
+#' User clicks are collected in a controlled way for use by [domath()].
 #'
 #' Obtain control points for the simple affine transform (offset and scale) on an ungeoreferenced image.
 #' @param x a raster
@@ -49,7 +51,10 @@ affinething <- function(x, rgb = FALSE) {
 }
 
 
-#' domath
+#' Calculate the math of an affine transform
+#'
+#' Given relative location and absolute locations, convert to an actual real world extent
+#' for a matrix of data.
 #'
 #' Convert known geographic points with raw graphic control points and a reference raster
 #' to an extent for the raster in geography.
@@ -82,14 +87,16 @@ domath <- function(pts, xy, r = NULL, proj = NULL) {
 }
 
 
-#' assignproj
+#' Assign projection
+#'
+#' Set the projection of a spatial object.
 #'
 #' @param x spatial object for use with [raster::projection()]
 #' @param proj PROJ.4 string
 #'
 #' @return a spatial object with the projection set
 #' @export
-assignproj <- function(x, proj = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0") {
+assignproj <- function(x, proj = "+proj=longlat +datum=WGS84") {
   raster::projection(x) <- proj
   x
 }

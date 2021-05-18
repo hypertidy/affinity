@@ -2,7 +2,7 @@
 % Please edit documentation in R/affinething.R
 \name{affinething}
 \alias{affinething}
-\title{affinething}
+\title{Use affine logic interactively georegister a raster}
 \usage{
 affinething(x, rgb = FALSE)
 }
@@ -15,6 +15,9 @@ affinething(x, rgb = FALSE)
 matrix of x,y coordinates in the space of the current raster extent
 }
 \description{
+User clicks are collected in a controlled way for use by [domath()].
+}
+\details{
 Obtain control points for the simple affine transform (offset and scale) on an ungeoreferenced image.
 }
 \examples{

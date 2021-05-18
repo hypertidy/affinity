@@ -2,12 +2,9 @@
 % Please edit documentation in R/affinething.R
 \name{assignproj}
 \alias{assignproj}
-\title{assignproj}
+\title{Assign projection}
 \usage{
-assignproj(
-  x,
-  proj = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0"
-)
+assignproj(x, proj = "+proj=longlat +datum=WGS84")
 }
 \arguments{
 \item{x}{spatial object for use with [raster::projection()]}
@@ -18,5 +15,5 @@ assignproj(
 a spatial object with the projection set
 }
 \description{
-assignproj
+Set the projection of a spatial object.
 }

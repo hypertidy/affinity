@@ -2,7 +2,7 @@
 % Please edit documentation in R/affinething.R
 \name{domath}
 \alias{domath}
-\title{domath}
+\title{Calculate the math of an affine transform}
 \usage{
 domath(pts, xy, r = NULL, proj = NULL)
 }
@@ -19,6 +19,10 @@ domath(pts, xy, r = NULL, proj = NULL)
 raster extent
 }
 \description{
+Given relative location and absolute locations, convert to an actual real world extent
+for a matrix of data.
+}
+\details{
 Convert known geographic points with raw graphic control points and a reference raster
 to an extent for the raster in geography.
 }
