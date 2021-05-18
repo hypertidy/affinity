@@ -104,11 +104,12 @@ raster_io0 <- function(src_offset, src_dim, out_dim = src_dim, resample = "Neare
 #' @export
 #' @name raster_io
 #' @examples
+#' sfio_to_rasterio(rasterio_to_sfio(raster_io0(c(0L, 0L), src_dim = c(24L, 10L))))
 sfio_to_rasterio <- function(x) {
   raster_io0(unlist(x[c("nXOff", "nYOff")]),
              unlist(x[c("nXSize", "nYSize")]),
-             unlist(x[c("nBufXSize", "nBufYSize")],
-                    resample = x[["resample"]]))
+             unlist(x[c("nBufXSize", "nBufYSize")]),
+                    resample = x[["resample"]])
 }
 
 #' The sf/stars RasterIO list
@@ -177,6 +178,7 @@ geo_transform0 <- function(px, ul, sh = c(0, 0)) {
 
 #' @name geo_transform0
 #' @param x worldfile parameters, as per [geo_world0()]
+#' @export
 #' @examples
 #' (wf <- geo_world0(px = c(1, -1), ul = c(0, 0)))
 #' gt <- world_to_geotransform(wf)
@@ -214,6 +216,7 @@ geo_world0 <- function(px, ul, sh = c(0, 0)) {
 }
 #' @name geo_world0
 #' @param x geotransform parameters, as per [geo_transform0()]
+#' @export
 #' @examples
 #' (gt <- geo_transform0(px = c(1, -1), ul = c(0, 0)))
 #' wf <- geotransform_to_world(gt)

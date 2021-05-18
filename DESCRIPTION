@@ -1,6 +1,6 @@
 Package: affinity
 Title: Basic Tools for Raster Georeferencing, Grid Affine Transforms, and Raster Cell Abstractions
-Version: 0.1.0.9001
+Version: 0.1.0.9100
 Authors@R: person("Michael D.", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"))
 Description: Tools for raster georeferencing, grid affine transforms, and general raster logic.
 Depends:
@@ -15,6 +15,7 @@ Imports:
     reproj,
     stats
 Suggests: 
-    covr
+    rmarkdown,
+    covr,
+    knitr
 VignetteBuilder: knitr
-

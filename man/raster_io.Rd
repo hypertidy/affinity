@@ -49,6 +49,7 @@ identical to that used in GDAL itself.
 }
 \examples{
 raster_io0(c(0L, 0L), src_dim = c(24L, 10L))
+sfio_to_rasterio(rasterio_to_sfio(raster_io0(c(0L, 0L), src_dim = c(24L, 10L))))
 rio <- raster_io0(c(0L, 0L), src_dim = c(24L, 10L))
 rasterio_to_sfio(rio)
 }
