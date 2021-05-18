@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Adjacency — adjacencies • affinity</title>
+<title>Adjacency, for use in creating area based meshes — adjacencies • affinity</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,13 @@
 
 
 
-<meta property="og:title" content="Adjacency — adjacencies" />
+<meta property="og:title" content="Adjacency, for use in creating area based meshes — adjacencies" />
 <meta property="og:description" content="Functions 'bottom left', 'top left', 'bottom right', and 'top right' named by
 their initials, provide very low level relative positional structures for use in
-raster logic." />
+raster logic. These are used to traverse the divide left by area-based rasters which are
+inherently a discrete value across a finite element. If we want that element as part of a
+continuous surface we need to find local relative values for its corners. Used in
+quadmesh and anglr packages." />
 
 
 
@@ -74,7 +77,7 @@ raster logic." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">affinity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -125,7 +128,7 @@ raster logic." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Adjacency</h1>
+    <h1>Adjacency, for use in creating area based meshes</h1>
     <small class="dont-index">Source: <a href='https://github.com/hypertidy/affinity/blob/master/R/adjacencies.R'><code>R/adjacencies.R</code></a></small>
     <div class="hidden name"><code>adjacencies.Rd</code></div>
     </div>
@@ -133,7 +136,10 @@ raster logic." />
     <div class="ref-description">
     <p>Functions 'bottom left', 'top left', 'bottom right', and 'top right' named by
 their initials, provide very low level relative positional structures for use in
-raster logic.</p>
+raster logic. These are used to traverse the divide left by area-based rasters which are
+inherently a discrete value across a finite element. If we want that element as part of a
+continuous surface we need to find local relative values for its corners. Used in
+quadmesh and anglr packages.</p>
     </div>
 
     <pre class="usage"><span class='fu'>bl</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
