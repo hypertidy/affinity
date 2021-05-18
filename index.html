@@ -87,9 +87,6 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#affinity" class="anchor"></a>affinity</h1></div>
 <p>The goal of affinity is to provide the basic tools used for raster grid georeferencing. This includes:</p>
-<p>Very much WIP (work in progress) and things will change. Most of the functionality is still internal, this package was renamed in October</p>
-<ol><li>
-</li></ol>
 <ul>
 <li>the affine transform</li>
 <li>the world file model</li>
@@ -97,6 +94,7 @@
 <li>basic tools for performing grid calculations</li>
 <li>simple control point georeferencing for un-mapped rasters.</li>
 </ul>
+<p>The main use at the moment is the ability to get a geotransform from an extent and dimension, this makes it easy to drive GDAL functions and to compare with the RasterIO logic in the sf package raster reader.</p>
 <p>The main functions for georeferencing are <code><a href="reference/affinething.html">affinething()</a></code> to collect drawn points interactively from an un-mapped raster image and <code><a href="reference/domath.html">domath()</a></code> to calculate the extent of the raster in geographic terms and <code><a href="reference/assignproj.html">assignproj()</a></code> to apply a map projection inline. There are some other experimental functions to write GDAL VRT <code>gdalvrt()</code> and to store some known cases for unmapped image sources.</p>
 <p>The basic tools still rely on the raster package.</p>
 <div id="installation" class="section level2">
@@ -148,8 +146,7 @@
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/contour.html">contour</a></span><span class="op">(</span><span class="va">mapped</span>, levels <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>, lty <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-affine-remap-1.png" width="100%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">#mv &lt;- mapview::mapview(mapped)</span></code></pre></div>
+<code class="sourceCode R"><span class="co">#mv &lt;- mapview::mapview(mapped)</span></code></pre></div>
 <hr>
 <p>Please note that the ‘affinity’ project is released with a <a href="https://github.com/hypertidy/affinity/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
@@ -193,6 +190,7 @@
 <li><a href="https://ci.appveyor.com/project/hypertidy/affinity"><img src="https://ci.appveyor.com/api/projects/status/github/hypertidy/affinity?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
 <li><a href="https://codecov.io/gh/hypertidy/affinity?branch=master"><img src="https://codecov.io/gh/hypertidy/affinity/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://CRAN.R-project.org/package=affinity"><img src="https://www.r-pkg.org/badges/version/affinity" alt="CRAN status"></a></li>
+<li><a href="https://github.com/hypertidy/affinity/actions"><img src="https://github.com/hypertidy/affinity/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 </div>
