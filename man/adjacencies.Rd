@@ -9,7 +9,7 @@
 \alias{image0}
 \alias{image1}
 \alias{text0}
-\title{Adjacency}
+\title{Adjacency, for use in creating area based meshes}
 \usage{
 bl(x)
 
@@ -33,7 +33,10 @@ text0(x, ...)
 \description{
 Functions 'bottom left', 'top left', 'bottom right', and 'top right' named by
 their initials, provide very low level relative positional structures for use in
-raster logic.
+raster logic. These are used to traverse the divide left by area-based rasters which are
+inherently a discrete value across a finite element. If we want that element as part of a
+continuous surface we need to find local relative values for its corners. Used in
+quadmesh and anglr packages.
 }
 \details{
 Some tiny functions 'image0', 'image1', 'text0' exist purely to illustrate the ideas in

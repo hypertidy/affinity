@@ -9,3 +9,7 @@
 ^codecov\.yml$
 ^docs$
 ^\.github$
+^data-raw$
+^cran-comments\.md$
+^CRAN-RELEASE$
+^gdalwmscache$
