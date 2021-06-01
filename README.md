@@ -60,13 +60,14 @@ very recognizable so I read off some long-lat control points using
 
 ``` r
 library(affinity)
-data("montereybay", package = "rayshader")
+#data("montereybay", package = "rayshader")
+data("monterey", package = "affinity")
 
 
 library(raster)
 #> Loading required package: sp
 ## we know that rayshader works transpose
-r <- t(raster(montereybay))
+r <- t(raster(monterey))
 
 prj <- "+proj=longlat +datum=WGS84"
 ## the north tip of Pacific Grove
@@ -90,10 +91,16 @@ xy <- affinething(r > 0)
 In this example the points are
 
 ``` r
-xy <- structure(c(0.65805655219227, 0.858931100128933, 0.367586425626388, 
-0.589597209007295), .Dim = c(2L, 2L), .Dimnames = list(NULL, 
+# xy <- structure(c(0.65805655219227, 0.858931100128933, 0.367586425626388,
+# 0.589597209007295), .Dim = c(2L, 2L), .Dimnames = list(NULL,
+#     c("x", "y")))
+xy <- structure(c(0.440321955368224, 0.580740883913579, 0.453408220576972,
+0.625733980086801), .Dim = c(2L, 2L), .Dimnames = list(NULL,
     c("x", "y")))
 ```
+
+Please note that if the matrix changes, then the values above will have
+to change as well (this has happened).
 
 <img src="man/figures/README-affine-thing2-1.png" width="100%" />
 
@@ -108,7 +115,7 @@ mapped <- assignproj(setExtent(r, domath(rbind(sw, ne), xy, r, proj = NULL)), pr
 m <- rnaturalearth::ne_countries(country = "United States of America", scale = 10)
 plot(mapped, col = viridis::viridis(30))
 plot(m, add = TRUE)
-contour(mapped, levels = -10, lty = 2, add = TRUE)
+contour(mapped, levels = -100, lty = 2, add = TRUE)
 ```
 
 <img src="man/figures/README-affine-remap-1.png" width="100%" />

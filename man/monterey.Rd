@@ -14,9 +14,10 @@ monterey
 Extent is in the examples, stolen from rayshader.
 }
 \details{
-A matrix 540x540 of topography. Used in \code{\link[=affinething]{affinething()}} examples.
+A matrix 270x270 of topography. Used in \code{\link[=affinething]{affinething()}} examples.
 }
 \examples{
 ex <- c(-122.366765, -121.366765, 36.179392, 37.179392)
+raster::setExtent(raster::t(raster::raster(monterey)), ex)
 }
 \keyword{datasets}
