@@ -26,9 +26,12 @@ image1(x, ...)
 text0(x, ...)
 }
 \arguments{
-\item{x}{matrix to plot}
+\item{x}{matrix}
 
 \item{...}{arguments passed to image()}
+}
+\value{
+matrix, padded by one row and one column relative to input
 }
 \description{
 Functions 'bottom left', 'top left', 'bottom right', and 'top right' named by
@@ -36,7 +39,7 @@ their initials, provide very low level relative positional structures for use in
 raster logic. These are used to traverse the divide left by area-based rasters which are
 inherently a discrete value across a finite element. If we want that element as part of a
 continuous surface we need to find local relative values for its corners. Used in
-quadmesh and anglr packages.
+quadmesh and anglr packages, and useful for calculating neighbourhood values.
 }
 \details{
 Some tiny functions 'image0', 'image1', 'text0' exist purely to illustrate the ideas in

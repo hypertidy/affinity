@@ -7,7 +7,7 @@
 assignproj(x, proj = "+proj=longlat +datum=WGS84")
 }
 \arguments{
-\item{x}{spatial object for use with [raster::projection()]}
+\item{x}{spatial object for use with \code{\link[raster:projection]{raster::projection()}}}
 
 \item{proj}{PROJ.4 string}
 }

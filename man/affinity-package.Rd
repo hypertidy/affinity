@@ -4,9 +4,15 @@
 \name{affinity-package}
 \alias{affinity}
 \alias{affinity-package}
-\title{affinity: Basic Tools for Raster Georeferencing, Grid Affine Transforms, and Raster Cell Abstractions}
+\title{affinity: Raster Georeferencing, Grid Affine Transforms, Cell Abstraction}
 \description{
-Tools for raster georeferencing, grid affine transforms, and general raster logic.
+Tools for raster georeferencing, grid affine transforms, and general raster logic. 
+ These functions provide converters between raster specifications, world vector, geotransform, 
+ 'RasterIO' window, and 'RasterIO window' in 'sf' package list format. There are functions to offset
+ a matrix by padding any of four corners (useful for vectorizing neighbourhood operations), and
+ helper functions to harvesting user clicks on a graphics device to use for simple georeferencing
+ of images.  Methods used are available from <https://en.wikipedia.org/wiki/World_file> and
+ <https://gdal.org/user/raster_data_model.html>.
 }
 \seealso{
 Useful links:

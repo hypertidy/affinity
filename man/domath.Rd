@@ -9,7 +9,7 @@ domath(pts, xy, r = NULL, proj = NULL)
 \arguments{
 \item{pts}{known points of 'xy'}
 
-\item{xy}{'xy' obtain from `affinething`}
+\item{xy}{'xy' obtain from \code{affinething}}
 
 \item{r}{raster in use}
 
@@ -26,6 +26,11 @@ for a matrix of data.
 Convert known geographic points with raw graphic control points and a reference raster
 to an extent for the raster in geography.
 }
+\examples{
+## not a real example, but the extent we could provide volcano if the second set of points
+## described the real world positions of the first set of points within the matrix
+domath(cbind(c(147, 148), c(-42, -43)), cbind(c(0.2, 0.3), c(0.1, 0.5)), raster::raster(volcano))
+}
 \seealso{
-affinething
+\code{\link[=affinething]{affinething()}}
 }

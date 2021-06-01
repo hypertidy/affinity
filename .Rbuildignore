@@ -14,3 +14,4 @@
 ^CRAN-RELEASE$
 ^gdalwmscache$
 ^inst/extdata$
+^inst/working_example.R$

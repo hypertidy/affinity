@@ -3,8 +3,6 @@
 \name{raster_io}
 \alias{raster_io}
 \alias{raster_io0}
-\alias{sfio_to_rasterio}
-\alias{rasterio_to_sfio}
 \title{GDAL RasterIO parameter creator}
 \usage{
 raster_io0(
@@ -13,10 +11,6 @@ raster_io0(
   out_dim = src_dim,
   resample = "NearestNeighbour"
 )
-
-sfio_to_rasterio(x)
-
-rasterio_to_sfio(x)
 }
 \arguments{
 \item{src_offset}{index offset (0-based, top left)}
@@ -25,31 +19,18 @@ rasterio_to_sfio(x)
 
 \item{out_dim}{output dimension (XY, optional src_dim will be used if not set)}
 
-\item{resample}{resampling algorith as per [raster_io0()]}
-
-\item{x}{rasterio params as from [raster_io0()]}
+\item{resample}{resampling algorith for GDAL see details}
 }
 \value{
 numeric vector of values specifying offset, source dimension, output dimension
-
-a sf-RasterIO parameter list
 }
 \description{
 Basic function to create the window paramers as used by GDAL RasterIO.
-
-We create the list as used by the stars/sf GDAL IO function 'gdal_read()'.
 }
 \details{
 Resampling algorithm is one of 'NearestNeighbour' (default), 'Average', 'Bilinear', 'Cubic', 'CubicSpline', 'Gauss', 'Lanczos', 'Mode', but
 more may be available given the version of GDAL in use.
-
-Note that the input is a 4 or 6 element vector, with offset 0-based and
-outputdimensions optional (will use the source window). The resample argument uses the syntax
-identical to that used in GDAL itself.
 }
 \examples{
 raster_io0(c(0L, 0L), src_dim = c(24L, 10L))
-sfio_to_rasterio(rasterio_to_sfio(raster_io0(c(0L, 0L), src_dim = c(24L, 10L))))
-rio <- raster_io0(c(0L, 0L), src_dim = c(24L, 10L))
-rasterio_to_sfio(rio)
 }

@@ -16,18 +16,22 @@ geotransform_to_world(x)
 
 \item{sh}{affine shear (XY)}
 
-\item{x}{geotransform parameters, as per [geo_transform0()]}
+\item{x}{geotransform parameters, as per \code{\link[=geo_transform0]{geo_transform0()}}}
 }
 \value{
 vector of parameters xres, yskew, xskew, yres, xmin, ymax
+
+world vector, as per \code{\link[=geo_world0]{geo_world0()}}
 }
 \description{
-Basic function to create a ['world file'](https://en.wikipedia.org/wiki/World_file)
+Basic function to create a \href{https://en.wikipedia.org/wiki/World_file}{'world file'}
 as used by various non-geo image formats
+
+Reformat to world vector.
 }
 \details{
-Note that xmin/xmax are _centre_of_cell_ (of top-left cell) unlike the geotransform which is
-top-left _corner_of_cell_. The parameters are otherwise the same, but in a different order.
+Note that xmin/xmax are \emph{centre_of_cell} (of top-left cell) unlike the geotransform which is
+top-left \emph{corner_of_cell}. The parameters are otherwise the same, but in a different order.
 }
 \examples{
 geo_world0(px = c(1, -1), ul = c(0, 0))
@@ -36,5 +40,5 @@ wf <- geotransform_to_world(gt)
 world_to_geotransform(wf)
 }
 \seealso{
-geo_transform0
+\link{geo_transform0}
 }

@@ -2,24 +2,11 @@
 % Please edit documentation in R/grids.R
 \name{geo_transform0}
 \alias{geo_transform0}
-\alias{gt_dim_to_extent}
-\alias{extent_dim_to_gt}
-\alias{world_to_geotransform}
 \title{Geo transform parameter creator}
 \usage{
-gt_dim_to_extent(x, dim)
-
-extent_dim_to_gt(x, dim)
-
 geo_transform0(px, ul, sh = c(0, 0))
-
-world_to_geotransform(x)
 }
 \arguments{
-\item{x}{worldfile parameters, as per [geo_world0()]}
-
-\item{dim}{dimensions x,y of grid (ncol,nrow)}
-
 \item{px}{pixel resolution (XY, Y-negative)}
 
 \item{ul}{grid offset, top-left corner}
@@ -27,23 +14,14 @@ world_to_geotransform(x)
 \item{sh}{affine shear (XY)}
 }
 \value{
-4-element extent c(xmin,xmax,ymin,ymax)
-
-6-element [geo_transform0()]
-
 vector of parameters xmin, xres, yskew, ymax, xskew, yres
 }
 \description{
 Basic function to create a geotransform as used by GDAL.
 }
 \examples{
-gt_dim_to_extent(geo_transform0(c(1, -1), c(0, 10)), c(5, 10))
-extent_dim_to_gt(c(0, 5, 0, 10), c(5, 10))
 geo_transform0(px = c(1, -1), ul = c(0, 0))
-(wf <- geo_world0(px = c(1, -1), ul = c(0, 0)))
-gt <- world_to_geotransform(wf)
-geotransform_to_world(gt)
 }
 \seealso{
-[world_geo()] which uses the same parameters in a different order
+\code{\link[=geo_world0]{geo_world0()}} which uses the same parameters in a different order
 }

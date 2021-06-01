@@ -19,7 +19,6 @@ enterPoints <- function(x1, y1, x2, y2) {
 #' @param rgb use RGB plot for a raster with 3 layers
 #' @return matrix of x,y coordinates in the space of the current raster extent
 #' @export
-#'
 #' @examples
 #' \donttest{
 #' \dontrun{
@@ -58,6 +57,7 @@ affinething <- function(x, rgb = FALSE) {
 #'
 #' Convert known geographic points with raw graphic control points and a reference raster
 #' to an extent for the raster in geography.
+#'
 #' @param pts known points of 'xy'
 #' @param xy 'xy' obtain from `affinething`
 #' @param r raster in use
@@ -65,7 +65,11 @@ affinething <- function(x, rgb = FALSE) {
 #'
 #' @return raster extent
 #' @export
-#' @seealso affinething
+#' @seealso [affinething()]
+#' @examples
+#' ## not a real example, but the extent we could provide volcano if the second set of points
+#' ## described the real world positions of the first set of points within the matrix
+#' domath(cbind(c(147, 148), c(-42, -43)), cbind(c(0.2, 0.3), c(0.1, 0.5)), raster::raster(volcano))
 domath <- function(pts, xy, r = NULL, proj = NULL) {
   if (is.null(r)) stop("need r input, a raster")
   if (!is.null(proj)) pts <-  reproj::reproj(pts, target = proj, source = 4326)

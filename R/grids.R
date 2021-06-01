@@ -17,7 +17,18 @@
 ## stars converters
 ## devices to rasterio, etc. ...
 
-#' @noRd
+
+#' Geotransform from raster object
+#'
+#' Return the geotransform defining the raster's offset and resolution.
+#'
+#' The geotransform vector is six coefficients xmin, xres, yskew, ymax, xskew, yres, values
+#' relative to the top left corner of the top left pixel. "yres" the y-spacing is
+#' traditionally negative.
+#'
+#' @param x raster object (the raster package, extends BasicRaster)
+#' @return a geotransform vector
+#' @export
 #' @examples
 #' raster_to_gt(raster::raster(volcano))
 raster_to_gt <- function(x) {
@@ -25,16 +36,46 @@ raster_to_gt <- function(x) {
   extent_dim_to_gt(c(x@extent@xmin, x@extent@xmax, x@extent@ymin, x@extent@ymax),
                    c(x@ncols, x@nrows))
 }
-
+#' World vector from raster object.
+#'
+#' Return the world transform defining the raster's offset and resolution.
+#'
+#' The world vector is the values xres, yres, xmin, ymax relative to the
+#' centre of the top left pixel. "yres" the y-spacing is traditionally negative.
+#'
+#' @param x raster object (the raster package, extends BasicRaster)
+#' @return a geotransform vector
+#' @export
+#' @examples
+#' raster_to_world(raster::raster(volcano))
 raster_to_world <- function(x) {
   gt <- raster_to_gt(x)
   geo_world0(gt[c("xres", "yres")], ul = gt[c("xmin", "ymax")])
 }
 
+
+#' RasterIO window from raster object
+#'
+#' Return the RasterIO window vector defining the raster's offset and resolution and dimensions.
+#'
+#' The RasterIO window is a six element vector of offset (x,y),  dimension of source (nx0, ny0) and
+#' dimension of output (nx, ny).
+#'
+#' The sf RasterIO is the RasterIO window in a list format used by the sf package, it contains the same
+#' information, and is created by [raster_to_sfio()].
+#'
+#' @param x a raster object (BasicRaster, from raster package)
+#'
+#' @return RasterIO window vector 'c(x0, y0, nx0, ny0, nx, y)' see Details
+#' @export
+#' @name raster_to_rasterio
+#' @examples
+#' raster_to_rasterio(raster::raster(volcano))
 raster_to_rasterio <- function(x) {
   raster_io0(c(0, 0), c(x@ncols, x@nrows))
 }
-
+#' @export
+#' @name raster_to_rasterio
 raster_to_sfio <- function(x) {
   rasterio_to_sfio( raster_to_rasterio(x))
 }
@@ -49,7 +90,13 @@ raster_to_sfio <- function(x) {
 ##  sfio_to_rasterio TODO
 ##  gt_dim_to_extent
 
-#' @name geo_transform0
+#' Determine extent from eotransform vector and dimension
+#'
+#' Create the extent (xlim, ylim) from the geotransform and dimensions
+#' of the grid.
+#'
+#' The extent is `c(xmin, xmax, ymin, ymax)`.
+#'
 #' @param x geotransform parameters, as per [geo_transform0()]
 #' @param dim dimensions x,y of grid (ncol,nrow)
 #' @return 4-element extent c(xmin,xmax,ymin,ymax)
@@ -62,7 +109,12 @@ gt_dim_to_extent <- function(x, dim) {
   c(xx, yy)
 }
 
-#' @name geo_transform0
+
+#' Create geotransform from extent and dimension
+#'
+#' Create the geotransform (see [geo_transform0()]) from extent and dimension.
+#'
+#' The dimension is always ncol, nrow.
 #' @param x extent parameters, c(xmin,xmax,ymin,ymax)
 #' @param dim dimensions x,y of grid (ncol,nrow)
 #' @return 6-element [geo_transform0()]
@@ -73,6 +125,7 @@ extent_dim_to_gt <- function(x, dim) {
   px <- c(diff(x[1:2])/dim[1L], -diff(x[3:4])/dim[2L])
   geo_transform0(px, c(x[1L], x[4L]))
 }
+
 #' GDAL RasterIO parameter creator
 #'
 #' Basic function to create the window paramers as used by GDAL RasterIO.
@@ -98,11 +151,16 @@ raster_io0 <- function(src_offset, src_dim, out_dim = src_dim, resample = "Neare
   out
 }
 
+#' sf package RasterIO from RasterIO window vector
+#'
+#' Basic function to create the window parameters as used by GDAL RasterIO, in
+#' format used by sf, in 'gdal_read(,RasterIO_parameters)'.
+#'
+#'
 #' @param x a RasterIO parameter list
 #'
 #' @return a sf-RasterIO parameter list
 #' @export
-#' @name raster_io
 #' @examples
 #' sfio_to_rasterio(rasterio_to_sfio(raster_io0(c(0L, 0L), src_dim = c(24L, 10L))))
 sfio_to_rasterio <- function(x) {
@@ -114,15 +172,14 @@ sfio_to_rasterio <- function(x) {
 
 #' The sf/stars RasterIO list
 #'
-#' We create the list as used by the stars/sf GDAL IO function 'gdal_read()'.
+#' We create the list as used by the stars/sf GDAL IO function 'gdal_read(, RasterIO_parameters)'.
 #'
 #' Note that the input is a 4 or 6 element vector, with offset 0-based and
-#' outputdimensions optional (will use the source window). The resample argument uses the syntax
+#' output dimensions optional (will use the source window). The resample argument uses the syntax
 #' identical to that used in GDAL itself.
 #'
 #' @param x rasterio params as from [raster_io0()]
-#' @param resample resampling algorith as per [raster_io0()]
-#' @name raster_io
+#' @return list in sf RasterIO format
 #' @export
 #' @examples
 #' rio <- raster_io0(c(0L, 0L), src_dim = c(24L, 10L))
@@ -157,7 +214,7 @@ rasterio_to_sfio <- function(x) {
 #' Geo transform parameter creator
 #'
 #' Basic function to create a geotransform as used by GDAL.
-#' @seealso [world_geo()] which uses the same parameters in a different order
+#' @seealso [geo_world0()] which uses the same parameters in a different order
 #' @param px pixel resolution (XY, Y-negative)
 #' @param ul grid offset, top-left corner
 #' @param sh affine shear (XY)
@@ -176,9 +233,14 @@ geo_transform0 <- function(px, ul, sh = c(0, 0)) {
     yres = px[[2L]])
 }
 
-#' @name geo_transform0
+#' Create geotransform from world vector
+#'
+#' Convert world vector (centre offset) and x,y spacing to
+#' geotransform format.
+#'
 #' @param x worldfile parameters, as per [geo_world0()]
 #' @export
+#' @return geotransform vector, see [geo_transform0()]
 #' @examples
 #' (wf <- geo_world0(px = c(1, -1), ul = c(0, 0)))
 #' gt <- world_to_geotransform(wf)
@@ -200,7 +262,7 @@ world_to_geotransform <- function(x) {
 #' top-left _corner_of_cell_. The parameters are otherwise the same, but in a different order.
 #' @inheritParams geo_transform0
 #' @export
-#' @seealso geo_transform0
+#' @seealso [geo_transform0]
 #' @return vector of parameters xres, yskew, xskew, yres, xmin, ymax
 #' @export
 #' @examples
@@ -214,8 +276,13 @@ geo_world0 <- function(px, ul, sh = c(0, 0)) {
     ymax = ul[[2L]] + px[[2L]]/2
   )
 }
+#' Convert geotransform vector to world vector
+#'
+#' Reformat to world vector.
+#'
 #' @name geo_world0
 #' @param x geotransform parameters, as per [geo_transform0()]
+#' @return world vector, as per [geo_world0()]
 #' @export
 #' @examples
 #' (gt <- geo_transform0(px = c(1, -1), ul = c(0, 0)))

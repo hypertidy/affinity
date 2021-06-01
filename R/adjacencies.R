@@ -5,12 +5,13 @@
 #' raster logic. These are used to traverse the divide left by area-based rasters which are
 #' inherently a discrete value across a finite element. If we want that element as part of a
 #' continuous surface we need to find local relative values for its corners. Used in
-#' quadmesh and anglr packages.
+#' quadmesh and anglr packages, and useful for calculating neighbourhood values.
 #'
 #' Some tiny functions 'image0', 'image1', 'text0' exist purely to illustrate the ideas in
 #' a vignette.
 #' @export
 #' @name adjacencies
+#' @return matrix, padded by one row and one column relative to input
 #' @examples
 #' (m <- matrix(1:12, 3))
 #' tl(m)
@@ -45,7 +46,7 @@ tr <- function(x) {
 
 #' @export
 #' @name adjacencies
-#' @param x matrix to plot
+#' @param x matrix
 #' @param ... arguments passed to image()
 image0 <- function(x, ...) image(seq(0, nrow(x)), seq(0, ncol(x)), x, ...)
 #' @export

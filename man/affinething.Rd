@@ -15,7 +15,7 @@ affinething(x, rgb = FALSE)
 matrix of x,y coordinates in the space of the current raster extent
 }
 \description{
-User clicks are collected in a controlled way for use by [domath()].
+User clicks are collected in a controlled way for use by \code{\link[=domath]{domath()}}.
 }
 \details{
 Obtain control points for the simple affine transform (offset and scale) on an ungeoreferenced image.
