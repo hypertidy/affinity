@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GDAL RasterIO parameter creator — raster_io • affinity</title>
+<title>Determine extent from eotransform vector and dimension — gt_dim_to_extent • affinity</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="GDAL RasterIO parameter creator — raster_io" />
-<meta property="og:description" content="Basic function to create the window paramers as used by GDAL RasterIO." />
+<meta property="og:title" content="Determine extent from eotransform vector and dimension — gt_dim_to_extent" />
+<meta property="og:description" content="Create the extent (xlim, ylim) from the geotransform and dimensions
+of the grid." />
 
 
 
@@ -123,57 +124,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>GDAL RasterIO parameter creator</h1>
+    <h1>Determine extent from eotransform vector and dimension</h1>
     <small class="dont-index">Source: <a href='https://github.com/hypertidy/affinity/blob/master/R/grids.R'><code>R/grids.R</code></a></small>
-    <div class="hidden name"><code>raster_io.Rd</code></div>
+    <div class="hidden name"><code>gt_dim_to_extent.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Basic function to create the window paramers as used by GDAL RasterIO.</p>
+    <p>Create the extent (xlim, ylim) from the geotransform and dimensions
+of the grid.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raster_io0</span><span class='op'>(</span>
-  <span class='va'>src_offset</span>,
-  <span class='va'>src_dim</span>,
-  out_dim <span class='op'>=</span> <span class='va'>src_dim</span>,
-  resample <span class='op'>=</span> <span class='st'>"NearestNeighbour"</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>gt_dim_to_extent</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>dim</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>src_offset</th>
-      <td><p>index offset (0-based, top left)</p></td>
+      <th>x</th>
+      <td><p>geotransform parameters, as per <code><a href='geo_transform0.html'>geo_transform0()</a></code></p></td>
     </tr>
     <tr>
-      <th>src_dim</th>
-      <td><p>source dimension (XY)</p></td>
-    </tr>
-    <tr>
-      <th>out_dim</th>
-      <td><p>output dimension (XY, optional src_dim will be used if not set)</p></td>
-    </tr>
-    <tr>
-      <th>resample</th>
-      <td><p>resampling algorith for GDAL see details</p></td>
+      <th>dim</th>
+      <td><p>dimensions x,y of grid (ncol,nrow)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric vector of values specifying offset, source dimension, output dimension</p>
+    <p>4-element extent c(xmin,xmax,ymin,ymax)</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Resampling algorithm is one of 'NearestNeighbour' (default), 'Average', 'Bilinear', 'Cubic', 'CubicSpline', 'Gauss', 'Lanczos', 'Mode', but
-more may be available given the version of GDAL in use.</p>
+    <p>The extent is <code><a href='https://rdrr.io/r/base/c.html'>c(xmin, xmax, ymin, ymax)</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>raster_io0</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>, <span class='fl'>0L</span><span class='op'>)</span>, src_dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>24L</span>, <span class='fl'>10L</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  offset_x  offset_y source_nx source_ny    out_nx    out_ny 
-#&gt;         0         0        24        10        24        10 
-#&gt; attr(,"resample")
-#&gt; [1] "NearestNeighbour"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>gt_dim_to_extent</span><span class='op'>(</span><span class='fu'><a href='geo_transform0.html'>geo_transform0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; xmin xmin ymax ymax 
+#&gt;    0    5    0   10 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

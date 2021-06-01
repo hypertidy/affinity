@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">affinity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
@@ -132,25 +132,11 @@
     <p>Basic function to create a geotransform as used by GDAL.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gt_dim_to_extent</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>dim</span><span class='op'>)</span>
-
-<span class='fu'>extent_dim_to_gt</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>dim</span><span class='op'>)</span>
-
-<span class='fu'>geo_transform0</span><span class='op'>(</span><span class='va'>px</span>, <span class='va'>ul</span>, sh <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>world_to_geotransform</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>geo_transform0</span><span class='op'>(</span><span class='va'>px</span>, <span class='va'>ul</span>, sh <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>worldfile parameters, as per [geo_world0()]</p></td>
-    </tr>
-    <tr>
-      <th>dim</th>
-      <td><p>dimensions x,y of grid (ncol,nrow)</p></td>
-    </tr>
     <tr>
       <th>px</th>
       <td><p>pixel resolution (XY, Y-negative)</p></td>
@@ -167,26 +153,15 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>4-element extent c(xmin,xmax,ymin,ymax)</p>
-<p>6-element [geo_transform0()]</p>
-<p>vector of parameters xmin, xres, yskew, ymax, xskew, yres</p>
+    <p>vector of parameters xmin, xres, yskew, ymax, xskew, yres</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[world_geo()] which uses the same parameters in a different order</p></div>
+    <div class='dont-index'><p><code><a href='geo_world0.html'>geo_world0()</a></code> which uses the same parameters in a different order</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>gt_dim_to_extent</span><span class='op'>(</span><span class='fu'>geo_transform0</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; xmin xmin ymax ymax 
-#&gt;    0    5    0   10 </div><div class='input'><span class='fu'>extent_dim_to_gt</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>5</span>, <span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='fu'>geo_transform0</span><span class='op'>(</span>px <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, ul <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  xmin  xres yskew  ymax xskew  yres 
-#&gt;     0     1     0    10     0    -1 </div><div class='input'><span class='fu'>geo_transform0</span><span class='op'>(</span>px <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, ul <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  xmin  xres yskew  ymax xskew  yres 
-#&gt;     0     1     0     0     0    -1 </div><div class='input'><span class='op'>(</span><span class='va'>wf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='geo_world0.html'>geo_world0</a></span><span class='op'>(</span>px <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, ul <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  xres yskew xskew  yres  xmin  ymax 
-#&gt;   1.0   0.0   0.0  -1.0   0.5  -0.5 </div><div class='input'><span class='va'>gt</span> <span class='op'>&lt;-</span> <span class='fu'>world_to_geotransform</span><span class='op'>(</span><span class='va'>wf</span><span class='op'>)</span>
-<span class='fu'><a href='geo_world0.html'>geotransform_to_world</a></span><span class='op'>(</span><span class='va'>gt</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  xres yskew xskew  yres  xmin  ymax 
-#&gt;   1.0   0.0   0.0  -1.0   0.5  -0.5 </div></pre>
+#&gt;     0     1     0     0     0    -1 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

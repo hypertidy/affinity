@@ -45,7 +45,7 @@ their initials, provide very low level relative positional structures for use in
 raster logic. These are used to traverse the divide left by area-based rasters which are
 inherently a discrete value across a finite element. If we want that element as part of a
 continuous surface we need to find local relative values for its corners. Used in
-quadmesh and anglr packages." />
+quadmesh and anglr packages, and useful for calculating neighbourhood values." />
 
 
 
@@ -77,7 +77,7 @@ quadmesh and anglr packages." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">affinity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@ their initials, provide very low level relative positional structures for use in
 raster logic. These are used to traverse the divide left by area-based rasters which are
 inherently a discrete value across a finite element. If we want that element as part of a
 continuous surface we need to find local relative values for its corners. Used in
-quadmesh and anglr packages.</p>
+quadmesh and anglr packages, and useful for calculating neighbourhood values.</p>
     </div>
 
     <pre class="usage"><span class='fu'>bl</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
@@ -161,7 +161,7 @@ quadmesh and anglr packages.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>matrix to plot</p></td>
+      <td><p>matrix</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -169,6 +169,9 @@ quadmesh and anglr packages.</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>matrix, padded by one row and one column relative to input</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Some tiny functions 'image0', 'image1', 'text0' exist purely to illustrate the ideas in

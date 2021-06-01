@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>affinity: Basic Tools for Raster Georeferencing, Grid Affine Transforms, and Raster Cell Abstractions — affinity-package • affinity</title>
+<title>affinity: Raster Georeferencing, Grid Affine Transforms, Cell Abstraction — affinity-package • affinity</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,14 @@
 
 
 
-<meta property="og:title" content="affinity: Basic Tools for Raster Georeferencing, Grid Affine Transforms, and Raster Cell Abstractions — affinity-package" />
-<meta property="og:description" content="Tools for raster georeferencing, grid affine transforms, and general raster logic." />
+<meta property="og:title" content="affinity: Raster Georeferencing, Grid Affine Transforms, Cell Abstraction — affinity-package" />
+<meta property="og:description" content="Tools for raster georeferencing, grid affine transforms, and general raster logic. 
+ These functions provide converters between raster specifications, world vector, geotransform, 
+ 'RasterIO' window, and 'RasterIO window' in 'sf' package list format. There are functions to offset
+ a matrix by padding any of four corners (useful for vectorizing neighbourhood operations), and
+ helper functions to harvesting user clicks on a graphics device to use for simple georeferencing
+ of images.  Methods used are available from &amp;lt;https://en.wikipedia.org/wiki/World_file&amp;gt; and
+ &amp;lt;https://gdal.org/user/raster_data_model.html&amp;gt;." />
 
 
 
@@ -72,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">affinity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
@@ -123,13 +129,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>affinity: Basic Tools for Raster Georeferencing, Grid Affine Transforms, and Raster Cell Abstractions</h1>
+    <h1>affinity: Raster Georeferencing, Grid Affine Transforms, Cell Abstraction</h1>
     <small class="dont-index">Source: <a href='https://github.com/hypertidy/affinity/blob/master/R/affinity-package.R'><code>R/affinity-package.R</code></a></small>
     <div class="hidden name"><code>affinity-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Tools for raster georeferencing, grid affine transforms, and general raster logic.</p>
+    <p>Tools for raster georeferencing, grid affine transforms, and general raster logic. 
+ These functions provide converters between raster specifications, world vector, geotransform, 
+ 'RasterIO' window, and 'RasterIO window' in 'sf' package list format. There are functions to offset
+ a matrix by padding any of four corners (useful for vectorizing neighbourhood operations), and
+ helper functions to harvesting user clicks on a graphics device to use for simple georeferencing
+ of images.  Methods used are available from &lt;https://en.wikipedia.org/wiki/World_file&gt; and
+ &lt;https://gdal.org/user/raster_data_model.html&gt;.</p>
     </div>
 
 
