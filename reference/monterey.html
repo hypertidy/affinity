@@ -140,11 +140,20 @@
     <p>An object of class <code>matrix</code> (inherits from <code>array</code>) with 270 rows and 270 columns.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A matrix 540x540 of topography. Used in <code><a href='affinething.html'>affinething()</a></code> examples.</p>
+    <p>A matrix 270x270 of topography. Used in <code><a href='affinething.html'>affinething()</a></code> examples.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>ex</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>122.366765</span>, <span class='op'>-</span><span class='fl'>121.366765</span>, <span class='fl'>36.179392</span>, <span class='fl'>37.179392</span><span class='op'>)</span>
-</div></pre>
+<span class='fu'>raster</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/setExtent.html'>setExtent</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/transpose.html'>t</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='va'>monterey</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>ex</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; class      : RasterLayer 
+#&gt; dimensions : 270, 270, 72900  (nrow, ncol, ncell)
+#&gt; resolution : 0.003703704, 0.003703704  (x, y)
+#&gt; extent     : -122.3668, -121.3668, 36.17939, 37.17939  (xmin, xmax, ymin, ymax)
+#&gt; crs        : NA 
+#&gt; source     : memory
+#&gt; names      : layer 
+#&gt; values     : -2805.527, 1513.167  (min, max)
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

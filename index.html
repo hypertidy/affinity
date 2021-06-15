@@ -117,13 +117,14 @@
 <p>Generally, we want <strong>diagonal points</strong>, so I tend to think “southwest” and “northeast”, it doesn’t really matter where they are as long as there’s some pixels between them in both directions. Monterey Bay is very recognizable so I read off some long-lat control points using <a href="https://r-spatial.github.io/mapview/">mapview</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/affinity">affinity</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"montereybay"</span>, package <span class="op">=</span> <span class="st">"rayshader"</span><span class="op">)</span>
+<span class="co">#data("montereybay", package = "rayshader")</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"monterey"</span>, package <span class="op">=</span> <span class="st">"affinity"</span><span class="op">)</span>
 
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: sp</span>
 <span class="co">## we know that rayshader works transpose</span>
-<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/transpose.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="va">montereybay</span><span class="op">)</span><span class="op">)</span>
+<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/transpose.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="va">monterey</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">prj</span> <span class="op">&lt;-</span> <span class="st">"+proj=longlat +datum=WGS84"</span>
 <span class="co">## the north tip of Pacific Grove</span>
@@ -138,9 +139,13 @@
 <span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/affinething.html">affinething</a></span><span class="op">(</span><span class="va">r</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <p>In this example the points are</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.65805655219227</span>, <span class="fl">0.858931100128933</span>, <span class="fl">0.367586425626388</span>, 
-<span class="fl">0.589597209007295</span><span class="op">)</span>, .Dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2L</span>, <span class="fl">2L</span><span class="op">)</span>, .Dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="cn">NULL</span>, 
+<code class="sourceCode R"><span class="co"># xy &lt;- structure(c(0.65805655219227, 0.858931100128933, 0.367586425626388,</span>
+<span class="co"># 0.589597209007295), .Dim = c(2L, 2L), .Dimnames = list(NULL,</span>
+<span class="co">#     c("x", "y")))</span>
+<span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.440321955368224</span>, <span class="fl">0.580740883913579</span>, <span class="fl">0.453408220576972</span>,
+<span class="fl">0.625733980086801</span><span class="op">)</span>, .Dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2L</span>, <span class="fl">2L</span><span class="op">)</span>, .Dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="cn">NULL</span>,
     <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Please note that if the matrix changes, then the values above will have to change as well (this has happened).</p>
 <p><img src="reference/figures/README-affine-thing2-1.png" width="100%"></p>
 <p>Now we have everything we need to re-map our raster! We don’t need to project our points as the known locations are in the same coordinate system as the source data. (In other situations we might georeference using a graticule on a projected map.)</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -149,7 +154,7 @@
 <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">rnaturalearth</span><span class="fu">::</span><span class="fu">ne_countries</span><span class="op">(</span>country <span class="op">=</span> <span class="st">"United States of America"</span>, scale <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">mapped</span>, col <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu">viridis</span><span class="op">(</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">m</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/contour.html">contour</a></span><span class="op">(</span><span class="va">mapped</span>, levels <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>, lty <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/contour.html">contour</a></span><span class="op">(</span><span class="va">mapped</span>, levels <span class="op">=</span> <span class="op">-</span><span class="fl">100</span>, lty <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-affine-remap-1.png" width="100%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#mv &lt;- mapview::mapview(mapped)</span></code></pre></div>
@@ -164,6 +169,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=affinity">https://​cloud.r-project.org/​package=affinity</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/hypertidy/affinity/">https://​github.com/​hypertidy/​affinity/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/hypertidy/affinity/issues">https://​github.com/​hypertidy/​affinity/​issues</a>
